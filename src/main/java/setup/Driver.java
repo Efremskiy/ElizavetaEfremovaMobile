@@ -45,11 +45,11 @@ public class Driver {
         // Setup test platform: Android or iOS. Browser also depends on a platform.
         switch(TEST_PLATFORM){
             case "Android": {
-                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, DEVICE_NAME);
                 browserName = "Chrome";
                 break;
             }
             case "iOS": {
+
                 browserName = "Safari";
                 break;
             }
@@ -58,12 +58,13 @@ public class Driver {
             }
         }
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, TEST_PLATFORM);
+        capabilities.setCapability("device", DEVICE_NAME);
+        capabilities.setCapability("realMobile", "true");
 
         // Setup type of application: mobile, web (or hybrid)
         if(AUT != null && SUT == null){
              //Native
-             File app = new File(AUT);
-             capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+             capabilities.setCapability(MobileCapabilityType.APP, AUT);
         } else if(SUT != null && AUT == null){
             // Web
              capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, browserName);
